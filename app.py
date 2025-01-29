@@ -15,9 +15,9 @@ import os
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Define model paths relative to the app's directory
-binary_model_path = os.path.join(base_dir, 'complete_model.h5')
+
 breed_model_path = os.path.join(base_dir, 'dogbreeds.keras')
-binary_model = tf.keras.models.load_model(binary_model_path)
+
 breed_model = tf.keras.models.load_model(breed_model_path)
 
  
