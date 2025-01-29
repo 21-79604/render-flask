@@ -20,6 +20,7 @@ breed_model_path = os.path.join(base_dir, 'dogbreeds.keras')
 binary_model = tf.keras.models.load_model(binary_model_path)
 breed_model = tf.keras.models.load_model(breed_model_path)
 
+ 
 # Class names for breed classification
 class_names = [
     "Afghan_hound", "African_hunting_dog", "Airedale", "American_Staffordshire_terrier",
@@ -56,21 +57,10 @@ def predict():
         return jsonify({'error': 'No selected file'})
 
     try:
-        # Load and process the image
-        image = Image.open(io.BytesIO(file.read()))
-        image = image.convert('RGB')  # Convert to RGB
+       
+        hotdog = 'dog'; # Adjust based on your model's output
 
-        # Resize image for binary classification
-        binary_image_size = (150, 150)
-        image_resized_for_binary = image.resize(binary_image_size)
-        image_array = np.array(image_resized_for_binary) / 255.0  # Normalize the image
-        image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
-
-        # Make prediction for binary classification
-        binary_predictions = binary_model.predict(image_array)
-        is_dog = binary_predictions[0][0] <= 0.5  # Adjust based on your model's output
-
-        if is_dog:
+        if hotdog == 'dog':
             # Resize image for breed classification
             breed_image_size = (128, 128)
             image_resized_for_breed = image.resize(breed_image_size)
@@ -491,5 +481,4 @@ def look_image():
 
 
 if __name__ == '__main__':
-    from werkzeug.serving import run_simple
-    run_simple('0.0.0.0', 5000, app, use_debugger=True, use_reloader=True)
+    app.run(debug=True)
