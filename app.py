@@ -58,7 +58,9 @@ def predict():
 
     try:
        
-        hotdog = 'dog'; # Adjust based on your model's output
+        hotdog = 'dog';
+        image = Image.open(io.BytesIO(file.read()))
+        image = image.convert('RGB')  # Convert to RGB# Adjust based on your model's output
 
         if hotdog == 'dog':
             # Resize image for breed classification
